@@ -1,20 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useFonts } from 'expo-font';
+import { JockeyOne_400Regular } from '@expo-google-fonts/jockey-one';
+import { Jaro_400Regular } from '@expo-google-fonts/jaro';
+import { NavigationContainer } from '@react-navigation/native';
+import Routes from './src/navigation';
+import { ActivityIndicator, View } from 'react-native';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    JockeyOne: JockeyOne_400Regular,
+    Jaro: Jaro_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Routes />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
